@@ -1,0 +1,9 @@
+ name		std		institut
+
+ suresh		degree		vevikandha degree collage
+ akshai 	1st class	ss school
+ reshitha 	6th		ss school
+ amurutha 	7th		govt school
+ vishnu		4th		govt school
+
+
