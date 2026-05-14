@@ -5,5 +5,7 @@
  reshitha 	6th		ss school
  amurutha 	7th		govt school
  vishnu		4th		govt school
+ lokesh 	pg		sv collage
+ naresh		pg		ru collage
 
 
