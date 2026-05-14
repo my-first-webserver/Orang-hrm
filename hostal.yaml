@@ -1,0 +1,15 @@
+use YAML::Tiny;
+# Open the config
+my $yaml = YAML::Tiny->read( 'file.yml' );
+# Get a reference to the first document
+my $config = $yaml->[0];
+# Or read properties directly
+my $root = $yaml->[0]->{rootproperty};
+my $one  = $yaml->[0]->{section}->{one};
+my $Foo  = $yaml->[0]->{section}->{Foo};
+# Change data directly
+$yaml->[0]->{newsection} = { this => 'that' }; # Add a section
+$yaml->[0]->{section}->{Foo} = 'Not Bar!';     # Change a value
+delete $yaml->[0]->{section};                  # Delete a value
+# Save the document back to the file
+$yaml->write( 'file.yml' );
