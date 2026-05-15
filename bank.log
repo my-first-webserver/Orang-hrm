@@ -1,0 +1,152 @@
+2026-05-14 09:00:01 INFO  Server started successfully
+2026-05-14 09:00:05 INFO  Database connection established
+2026-05-14 09:00:10 WARN  Disk usage reached 75%
+2026-05-14 09:00:15 INFO  User admin logged in
+2026-05-14 09:00:20 ERROR Failed to load config file
+2026-05-14 09:00:25 INFO  Retrying configuration load
+2026-05-14 09:00:30 INFO  Configuration loaded successfully
+2026-05-14 09:00:35 INFO  API service initialized
+2026-05-14 09:00:40 WARN  High memory usage detected
+2026-05-14 09:00:45 INFO  Scheduled backup started
+2026-05-14 09:00:50 INFO  Backup completed successfully
+2026-05-14 09:00:55 ERROR User authentication failed
+2026-05-14 09:01:00 INFO  User guest logged out
+2026-05-14 09:01:05 INFO  Nginx service restarted
+2026-05-14 09:01:10 WARN  CPU temperature high
+2026-05-14 09:01:15 INFO  Cleanup task started
+2026-05-14 09:01:20 INFO  Temporary files removed
+2026-05-14 09:01:25 ERROR Unable to send email notification
+2026-05-14 09:01:30 INFO  SMTP server reconnected
+2026-05-14 09:01:35 INFO  Cron job executed successfully
+2026-05-14 09:01:40 WARN  Low available memory
+2026-05-14 09:01:45 INFO  Docker container started
+2026-05-14 09:01:50 ERROR Docker container crashed
+2026-05-14 09:01:55 INFO  Restarting Docker container
+2026-05-14 09:02:00 INFO  Docker container running
+2026-05-14 09:02:05 INFO  File upload completed
+2026-05-14 09:02:10 WARN  Slow network response detected
+2026-05-14 09:02:15 INFO  SSH login successful
+2026-05-14 09:02:20 ERROR Permission denied for user test
+2026-05-14 09:02:25 INFO  Password updated successfully
+2026-05-14 09:02:30 INFO  Jenkins pipeline triggered
+2026-05-14 09:02:35 WARN  Build execution taking longer than expected
+2026-05-14 09:02:40 INFO  Build completed successfully
+2026-05-14 09:02:45 ERROR Deployment failed on server-2
+2026-05-14 09:02:50 INFO  Rollback initiated
+2026-05-14 09:02:55 INFO  Rollback completed
+2026-05-14 09:03:00 INFO  Monitoring service enabled
+2026-05-14 09:03:05 WARN  SSL certificate expiring soon
+2026-05-14 09:03:10 INFO  SSL renewal started
+2026-05-14 09:03:15 INFO  SSL certificate renewed
+2026-05-14 09:03:20 ERROR Failed to connect to Redis server
+2026-05-14 09:03:25 INFO  Redis server restarted
+2026-05-14 09:03:30 INFO  Cache cleared successfully
+2026-05-14 09:03:35 WARN  Unauthorized access attempt detected
+2026-05-14 09:03:40 INFO  Firewall rules updated
+2026-05-14 09:03:45 INFO  Kubernetes pod created
+2026-05-14 09:03:50 ERROR Pod entered CrashLoopBackOff state
+2026-05-14 09:03:55 INFO  Pod restarted automatically
+2026-05-14 09:04:00 INFO  System health check passed
+2026-05-14 09:04:05 INFO  Log rotation completed
+
+
+
+
+
+
+
+<<<<<<<<<<<<<<<<----------- i have added here small yaml file ---------->>>>>>>>>>>>>>>>>>>
+
+all:
+  children:
+    control_nodes:
+      hosts:
+        node1:
+          custom_hostname: <VALUE>
+          management_network:
+            network1:
+              ip: <VALUE>
+        node2:
+          custom_hostname: <VALUE>
+          management_network:
+            network1:
+              ip: <VALUE>
+        node3:
+          custom_hostname: <VALUE>
+          management_network:
+            network1:
+              ip: <VALUE>
+    switches:
+      hosts:
+        FabSw1a:
+          # Run on the control rather than remotely
+          ansible_host: localhost
+
+          # Is there an external link here at all?
+          external_connection_enabled: False
+          # If the above is True the following section is filled in
+          external_connection_config:
+            # First link config
+            external_link1:
+              # Ports to put in this link, a list of 'number', 'number'
+              switch_ports: ['XX', 'YY']
+
+              # same config for all the values in switch_ports
+              port_config:
+                mtu: 9000
+                link_speed: 10000
+
+              # Which VLANs arriving on this port (and crossing the bridge)
+              vlans: ['VALUE']
+
+              # True means we only accept tagged packets from external source
+              # False means we only accept untagged packets from external source
+              strict_vlan: true
+
+              # Name of this link
+              name: <VALUE>
+
+              # True indicates there is multiple links in this connection
+              lacp_link: True
+
+              # LACP Refresh rate. (Fast or Slow)
+              lacp_rate: Fast
+
+              # CLAG Id for this link, 0 for no clag
+              clag_id: 100
+
+              # This switch should have matching cfg (and the same clag_id)
+              # Use False for links only on a single switch
+              partner_switch: 'FabSw1b'
+
+  vars:
+    app_fqdn: <VALUE>
+    #(pick from timedatectl list-timezones), default is EDT
+    timezone: "<OPTIONAL>"
+    #must begin with server or pool
+    time_servers: ["<OPTIONAL>"]
+    dns_servers: ["<VALUE>"]
+    dns_search_strings: ["<OPTIONAL>"]
+    smtp_servers: ["<OPTIONAL>"]
+    management_network:
+      network1:
+        subnet: <VALUE>
+        # just number, no slash 
+        prefix: <VALUE>
+        gateway: <VALUE>
+        floating_ip: <VALUE>
+        mtu: <OPTIONAL>
+        custom_routes: <OPTIONAL>
+    application_network_enabled: True
+    application_network:
+      network1:
+        default_gateway: true
+        vlan: <VALUE>
+        # just number, no slash 
+        prefix: <VALUE>
+        gateway: <VALUE>
+        floating_ip: <VALUE>
+        mtu: <OPTIONAL>
+        custom_routes: <OPTIONAL>
+
+
